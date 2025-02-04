@@ -23,15 +23,18 @@ class Token(BaseModel):
 class TokenData(BaseModel):
     username: str | None = None  # Имя пользователя, хранящееся в токене
 
-# Модель для данных пользователя
-class UserD(BaseModel):
+class BaseUser(BaseModel):
     username: str  # Имя пользователя (обязательное поле)
     email: str | None = None  # Электронная почта пользователя (необязательное поле)
     full_name: str | None = None  # Полное имя пользователя (необязательное поле)
-    password: str |None = None# Пароль пользователя 
     disabled: bool | None = None  # Флаг, указывающий, отключен ли пользователь (необязательное поле)
 # Модель для пользователя в базе данных (наследуется от UserD)
-class UserInDB(UserD):
+
+# Модель для данных пользователя
+class UserD(BaseUser):
+    password: str # Пароль пользователя
+    
+class UserInDB(BaseUser):
     hashed_password: str  # Хешированный пароль пользователя
 
 # Контекст для хеширования паролей
